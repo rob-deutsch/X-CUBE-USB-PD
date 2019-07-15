@@ -35,31 +35,58 @@ BUILD_DIR = build
 # source
 ######################################
 # C sources
+DRIVERS = ../../../../../Drivers
+RTOS = ../../../../../Middlewares/Third_Party/FreeRTOS/Source
+USBPD = ../../../../../Middlewares/ST/STM32_USBPD_Library
+LED_SERVER = ../../../../../Utilities/LED_SERVER
+
 C_SOURCES =  \
 Src/main.c \
 Src/stm32f0xx_it.c \
 Src/stm32f0xx_hal_msp.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc_ex.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr_ex.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c \
-Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.c \
-Src/system_stm32f0xx.c  
+Src/usbpd_dpm_user.c \
+Src/usbpd_pwr_if.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc_ex.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr_ex.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.c \
+Src/system_stm32f0xx.c  \
+$(USBPD)/Devices/STM32F072/src/usbpd_hw_if_it.c \
+$(USBPD)/Devices/STM32F072/src/usbpd_phy_hw_if.c \
+$(USBPD)/Devices/STM32F072/src/usbpd_timersserver.c \
+$(USBPD)/Devices/STM32F072/src/usbpd_pwr_hw_if.c \
+$(USBPD)/Devices/STM32F072/src/usbpd_phy.c \
+$(USBPD)/Devices/STM32F072/src/bmc.c \
+$(USBPD)/Devices/STM32F072/src/usbpd_cad_hw_if.c \
+$(USBPD)/Core/src/usbpd_dpm_core.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_crc.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_crc_ex.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_ll_utils.c \
+$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_comp.c \
+$(RTOS)/CMSIS_RTOS/cmsis_os.c \
+$(RTOS)/portable/GCC/ARM_CM0/port.c \
+$(RTOS)/tasks.c \
+$(RTOS)/list.c \
+$(RTOS)/portable/MemMang/heap_4.c \
+$(RTOS)/queue.c \
+$(LED_SERVER)/led_server.c \
+$(DRIVERS)/BSP/P-NUCLEO-USB001/p-nucleo-usb001.c
 
 # ASM sources
 ASM_SOURCES =  \
-startup_stm32f072xb.s
+SW4STM32/startup_stm32f072xb.s
 
 
 #######################################
@@ -106,8 +133,14 @@ C_DEFS =  \
 -DUSE_HAL_DRIVER \
 -DSTM32F072xB \
 -DUSE_HAL_DRIVER \
--DSTM32F072xB
-
+-DSTM32F072xB \
+-DUSE_STM32F0XX_NUCLEO \
+-D_RTOS \
+-DUSBPD_LED_SERVER \
+-DUSBPD_PORT_COUNT=1 \
+-D_SNK \
+-DUSBPDCORE_LIB_PD2_CONFIG_1 \
+-D_TRACE_NA
 
 # AS includes
 AS_INCLUDES = 
@@ -115,11 +148,22 @@ AS_INCLUDES =
 # C includes
 C_INCLUDES =  \
 -IInc \
--IDrivers/STM32F0xx_HAL_Driver/Inc \
--IDrivers/STM32F0xx_HAL_Driver/Inc/Legacy \
--IDrivers/CMSIS/Device/ST/STM32F0xx/Include \
--IDrivers/CMSIS/Include \
--IDrivers/CMSIS/Include
+-I$(DRIVERS)/STM32F0xx_HAL_Driver/Inc \
+-I$(DRIVERS)/STM32F0xx_HAL_Driver/Inc/Legacy \
+-I$(DRIVERS)/CMSIS/Device/ST/STM32F0xx/Include \
+-I$(DRIVERS)/CMSIS/Include \
+-I$(DRIVERS)/CMSIS/Include \
+-I$(DRIVERS)/BSP/P-NUCLEO-USB001 \
+-I$(DRIVERS)/BSP/STM32F0xx-Nucleo \
+-I$(DRIVERS)/BSP/Components/Common \
+-I$(RTOS)/CMSIS_RTOS \
+-I$(RTOS)/include \
+-I$(RTOS)/portable/GCC/ARM_CM0 \
+-I$(USBPD)/Core/inc \
+-I$(USBPD)/Devices/STM32F072/inc \
+-I$(LED_SERVER)
+
+# -I$(DRIVERS)/BSP/Components/fusb307
 
 
 # compile gcc flags
@@ -140,12 +184,13 @@ CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 # LDFLAGS
 #######################################
 # link script
-LDSCRIPT = STM32F072RBTx_FLASH.ld
+LDSCRIPT = SW4STM32/STM32F072RB-Nucleo_Consumer_RTOS/STM32F072RBTx_FLASH.ld
 
 # libraries
-LIBS = -lc -lm -lnosys 
-LIBDIR = 
-LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
+LIBS = -lc -lm -lnosys \
+-l:USBPDCORE_PD2_CONFIG_1_CM0_wc32.a
+LIBDIR = -L$(USBPD)/Core/lib
+LDFLAGS = $(MCU) -specs=nosys.specs -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
 # default action: build all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
