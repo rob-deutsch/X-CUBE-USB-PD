@@ -36,6 +36,7 @@ BUILD_DIR = build
 ######################################
 # C sources
 DRIVERS = ../../../../../Drivers
+DRIVER_HAL = $(DRIVERS)/STM32F0xx_HAL_Driver
 RTOS = ../../../../../Middlewares/Third_Party/FreeRTOS/Source
 USBPD = ../../../../../Middlewares/ST/STM32_USBPD_Library
 LED_SERVER = ../../../../../Utilities/LED_SERVER
@@ -46,22 +47,22 @@ Src/stm32f0xx_it.c \
 Src/stm32f0xx_hal_msp.c \
 Src/usbpd_dpm_user.c \
 Src/usbpd_pwr_if.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc_ex.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr_ex.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_tim.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_tim_ex.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_uart.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_uart_ex.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_rcc.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_rcc_ex.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_i2c.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_i2c_ex.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_gpio.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_dma.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_cortex.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_pwr.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_pwr_ex.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_flash.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_flash_ex.c \
 Src/system_stm32f0xx.c  \
 $(USBPD)/Devices/STM32F072/src/usbpd_hw_if_it.c \
 $(USBPD)/Devices/STM32F072/src/usbpd_phy_hw_if.c \
@@ -71,10 +72,10 @@ $(USBPD)/Devices/STM32F072/src/usbpd_phy.c \
 $(USBPD)/Devices/STM32F072/src/bmc.c \
 $(USBPD)/Devices/STM32F072/src/usbpd_cad_hw_if.c \
 $(USBPD)/Core/src/usbpd_dpm_core.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_crc.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_crc_ex.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_ll_utils.c \
-$(DRIVERS)/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_comp.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_crc.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_crc_ex.c \
+$(DRIVER_HAL)/Src/stm32f0xx_ll_utils.c \
+$(DRIVER_HAL)/Src/stm32f0xx_hal_comp.c \
 $(RTOS)/CMSIS_RTOS/cmsis_os.c \
 $(RTOS)/portable/GCC/ARM_CM0/port.c \
 $(RTOS)/tasks.c \
@@ -148,8 +149,8 @@ AS_INCLUDES =
 # C includes
 C_INCLUDES =  \
 -IInc \
--I$(DRIVERS)/STM32F0xx_HAL_Driver/Inc \
--I$(DRIVERS)/STM32F0xx_HAL_Driver/Inc/Legacy \
+-I$(DRIVER_HAL)/Inc \
+-I$(DRIVER_HAL)/Inc/Legacy \
 -I$(DRIVERS)/CMSIS/Device/ST/STM32F0xx/Include \
 -I$(DRIVERS)/CMSIS/Include \
 -I$(DRIVERS)/CMSIS/Include \
